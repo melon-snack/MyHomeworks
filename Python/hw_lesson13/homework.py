@@ -49,4 +49,16 @@ def compress_image(image_path: str, output_format: str, quality: int):
         heif_file = heif_from_pillow(compressed_image)
         heif_file.save(f"{image_path}.{output_format}", quality=quality)
         return
-    
+
+def main():
+    # Запрашиваю у пользователя путь к изображению/изображениям.
+    user_source_path: str = input("Введите путь до изображений\n")
+    # Запрашиваю у пользователя желаемый формат для конвертации.
+    output_format = ""
+    user_format: int = input("Выберите формат для конвертации.\nДоступные форматы: WEBP, HEIC, AVIF\n").lower()
+
+    list_paths = get_images_paths(user_source_path, ALLOWED_EXTENSIONS)
+    for image in list_paths:
+        compress_image(image, user_format, 40)
+
+main()
