@@ -4,6 +4,12 @@ from pillow_heif import register_heif_opener, from_pillow as heif_from_pillow
 import pillow_avif
 import os
 
+register_heif_opener()
+
+ALLOWED_EXTENSIONS: list[str] = ['jpg', 'jpeg', 'png', 'dng']
+
+
+
 # Получение изображений
 def get_images_paths(source_path: str, allowed_extensions: list[str]) -> list[str]:
 
