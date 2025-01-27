@@ -31,3 +31,22 @@ def get_images_paths(source_path: str, allowed_extensions: list[str]) -> list[st
                     print(f"success! {full_path}")
 
     return list_paths
+
+def compress_image(image_path: str, output_format: str, quality: int):
+    supported_formats = ["webp", "heic", "avif"]
+    compressed_image = Image.open(image_path)
+
+    # Проверка формата
+    if output_format not in supported_formats:
+        raise ValueError (f'Формат {output_format} не поддерживается')
+
+    #Проверка на WEBP и AVIF
+    if output_format in ["webp", "avif"]:
+        compressed_image.save(f"{image_path}.{output_format}", output_format=output_format, quality=quality)
+        return
+
+    if output_format == "heic":
+        heif_file = heif_from_pillow(compressed_image)
+        heif_file.save(f"{image_path}.{output_format}", quality=quality)
+        return
+    
