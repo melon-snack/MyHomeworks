@@ -26,7 +26,7 @@ def write_csv(*data: dict, file_path: str, delimiter=';', encoding: str ='utf-8-
         writer = csv.writer(file, delimiter=delimiter)
         writer.writerows(data)
 
-# Изменение данных CSV файла
+# Функция изменения данных CSV файла
 def append_csv(*data: dict, file_path: str, delimiter=';', encoding: str ='utf-8-sig'):
     with open(file_path, "a", encoding=encoding, newline="") as file:
         writer = csv.writer(file, delimiter=delimiter)
