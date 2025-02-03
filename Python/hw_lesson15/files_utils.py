@@ -13,6 +13,14 @@ def write_json(*data: dict, file_path: str, encoding: str = "utf-8"):
     with open(file_path, "w", encoding=encoding) as jsonfile:
         json.dump(data, jsonfile, indent=4, ensure_ascii=False)
 
+# Функция изменения данных CSV файла
+def append_json(*data: dict, file_path: str, encoding: str = "utf-8"):
+    with open(file_path, "r", encoding=encoding) as file:
+        data_dump = json.load(file)
+    data_dump.extend(data)
+    with open(file_path, "w", encoding=encoding) as file:
+        json.dump(data_dump, file, indent=4, ensure_ascii=False)
+
 # Функция чтения данных файла CSV
 def read_csv(file_path: str, delimiter=';', encoding: str ='utf-8-sig'):
     with open(file_path, "r", encoding=encoding) as file:
