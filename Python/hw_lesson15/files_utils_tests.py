@@ -1,2 +1,0 @@
-"""Homework part 2"""
-
