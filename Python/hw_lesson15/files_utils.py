@@ -1,5 +1,6 @@
 """Homework part 1"""
 import json
+import csv
 
 # Функция чтения данных файла JSON
 def read_json(file_path: str, encoding: str = "utf-8"):
@@ -11,3 +12,10 @@ def read_json(file_path: str, encoding: str = "utf-8"):
 def write_json(*data: dict, file_path: str, encoding: str = "utf-8"):
     with open(file_path, "w", encoding=encoding) as jsonfile:
         json.dump(data, jsonfile, indent=4, ensure_ascii=False)
+
+# Функция чтения данных файла CSV
+def read_csv(file_path: str, delimiter=';', encoding: str ='utf-8-sig'):
+    with open(file_path, "r", encoding=encoding) as file:
+        reader = csv.reader(file, delimiter=delimiter)
+        result = list(reader)
+    return result
