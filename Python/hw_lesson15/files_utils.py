@@ -1,6 +1,7 @@
 """Homework part 1"""
 import json
 import csv
+import yaml
 
 # Функция чтения данных файла JSON
 def read_json(file_path: str, encoding: str = "utf-8"):
@@ -58,3 +59,9 @@ def append_txt(*data: str, file_path: str, encoding: str = "utf-8"):
         file.write("\n")
         text = " ".join(*data)
         file.write(text)
+
+# Функция чтения файла YAML
+def read_yaml(file_path):
+    with open(file_path, "r", encoding="utf-8") as file:
+        data = yaml.safe_load(file)
+    return data
