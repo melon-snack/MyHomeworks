@@ -19,3 +19,9 @@ def read_csv(file_path: str, delimiter=';', encoding: str ='utf-8-sig'):
         reader = csv.reader(file, delimiter=delimiter)
         result = list(reader)
     return result
+
+# Функция записи данных файла CSV
+def write_csv(*data: dict, file_path: str, delimiter=';', encoding: str ='utf-8-sig'):
+    with open(file_path, "w", encoding=encoding, newline="") as file:
+        writer = csv.writer(file, delimiter=delimiter)
+        writer.writerows(data)
