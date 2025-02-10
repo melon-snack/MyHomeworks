@@ -46,8 +46,17 @@ def username_validator(func: Callable) -> Callable:
         return func(username, password)
     return wrapper
 
-# Функция записи юзернейма и пароля в csv файл
+# Функция записи в csv файл
 def append_csv(*data: dict, file_path: str, delimiter=';', encoding: str ='utf-8-sig'):
     with open(file_path, "a", encoding=encoding, newline="") as file:
         writer = csv.writer(file, delimiter=delimiter)
         writer.writerow(data)
+
+@password_validator(min_length=8, min_uppercase=1, min_lowercase=1, min_special_chars=1)
+@username_validator
+# Функция записи юзернейма и пароля в csv файл
+def register_user(username, password):
+    user: list = []
+    user.append(username)
+    user.append(password)
+    append_csv(user, file_path="users.csv")
