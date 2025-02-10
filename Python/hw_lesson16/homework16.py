@@ -61,7 +61,7 @@ def register_user(username, password):
     user.append(password)
     append_csv(user, file_path="users.csv")
 
-# Проверка успешного пароля
+# Проверка успешного юзернейма и пароля
 try:
     register_user("Bob", "qW@rT1uI")
     print("Регистрация прошла успешно!")
@@ -85,6 +85,13 @@ except ValueError as e:
 # Проверка на ошибку отсутствия специальных символов
 try:
     register_user("Bob", "qWerT1uI")
+    print("Регистрация прошла успешно!")
+except ValueError as e:
+    print(f"Ошибка: {e}")
+
+# Проверка ошибки юзернейма
+try:
+    register_user("Bob Bobbert", "qW@rT1uI")
     print("Регистрация прошла успешно!")
 except ValueError as e:
     print(f"Ошибка: {e}")
