@@ -45,3 +45,9 @@ def username_validator(func: Callable) -> Callable:
             raise ValueError(f"В строке {username} содержатся пробелы!")
         return func(username, password)
     return wrapper
+
+# Функция записи юзернейма и пароля в csv файл
+def append_csv(*data: dict, file_path: str, delimiter=';', encoding: str ='utf-8-sig'):
+    with open(file_path, "a", encoding=encoding, newline="") as file:
+        writer = csv.writer(file, delimiter=delimiter)
+        writer.writerow(data)
