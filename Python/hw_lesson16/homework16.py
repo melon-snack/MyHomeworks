@@ -42,7 +42,7 @@ def password_validator(min_length=8, min_uppercase=1, min_lowercase=1, min_speci
 def username_validator(func: Callable) -> Callable:
     def wrapper(username, password):
         if " " in username:
-            raise ValueError(f"В строке {username} содержатся пробелы!")
+            raise ValueError(f"В юзернейме {username} содержатся пробелы!")
         return func(username, password)
     return wrapper
 
