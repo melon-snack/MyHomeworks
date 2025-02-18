@@ -26,3 +26,8 @@ def get_letter(film):
         return "Ч" in film["title"]
 
 letter_list = list(filter(get_letter, full_list))
+
+# 8 сортировка словаря full_dict по одному параметру с помощью lambda
+# сортировка по году выхода
+sort_first = full_list
+sort_first.sort(key=lambda film: (film["year"] if isinstance(film["year"], int) else 0))
