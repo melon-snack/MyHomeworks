@@ -31,3 +31,13 @@ letter_list = list(filter(get_letter, full_list))
 # сортировка по году выхода
 sort_first = full_list
 sort_first.sort(key=lambda film: (film["year"] if isinstance(film["year"], int) else 0))
+
+# 9 сортировка словаря full_dict по двум параметрам с помощью lambda
+# сортировка по году выхода и названию
+sort_second = full_list
+sort_second.sort(
+    key=lambda film: (
+        film["year"] if isinstance(film["year"], int) else 0,
+        film["title"] if film["title"] else "Без Названия",
+    )
+)
