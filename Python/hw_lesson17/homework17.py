@@ -6,3 +6,6 @@ from marvel import full_dict
 user_ids = input("Введите цифры через пробел\n")
 user_ids = user_ids.split()
 user_ids = list(map(lambda num: int(num) if num.isdigit() else None, user_ids))
+
+# 3 перепаковка full_dict в список словарей
+full_list = [{"id": film_id, **film} for film_id, film in full_dict.items()]
