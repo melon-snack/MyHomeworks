@@ -16,3 +16,6 @@ def get_user_list(ids):
         ids_index = full_list.index(ids)
         return ids_index in user_ids
 user_list = list(filter(get_user_list, full_list))
+
+# 5 создание множества с помощью set comprehension
+director_set = {film[val] for film in full_list for val in film if val == "director"}
