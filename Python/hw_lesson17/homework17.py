@@ -24,3 +24,5 @@ director_set = {film[val] for film in full_list for val in film if val == "direc
 def get_letter(film):
     if not film["title"] == None:
         return "Ч" in film["title"]
+
+letter_list = list(filter(get_letter, full_list))
