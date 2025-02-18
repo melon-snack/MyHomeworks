@@ -29,7 +29,7 @@ pprint(director_set)
 # 7 фильтр фильмов из full_dict начинающихся на букву Ч
 def get_letter(film):
     if not film["title"] == None:
-        return "Ч" in film["title"]
+        return "Ч" in film["title"][0]
 
 letter_list = list(filter(get_letter, full_list))
 print("Задание №7, фильтр фильмов начинающихся на букву Ч\n")
