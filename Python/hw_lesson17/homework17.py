@@ -19,3 +19,8 @@ user_list = list(filter(get_user_list, full_list))
 
 # 5 создание множества с помощью set comprehension
 director_set = {film[val] for film in full_list for val in film if val == "director"}
+
+# 7 фильтр фильмов из full_dict начинающихся на букву Ч
+def get_letter(film):
+    if not film["title"] == None:
+        return "Ч" in film["title"]
