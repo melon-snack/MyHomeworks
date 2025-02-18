@@ -41,3 +41,7 @@ sort_second.sort(
         film["title"] if film["title"] else "Без Названия",
     )
 )
+
+# 10 однострочник фильтр и сортировщик
+# сортировка фильмов по названию из 2017 года
+sort_third = list(sorted(filter(lambda film: film["year"] == 2017, full_list),key=lambda film: film["title"],))
