@@ -71,3 +71,38 @@ class CSVFileHandler:
                 writer.writerow(data)
         except PermissionError:
             raise PermissionError(f"Нет прав на чтение файла {filepath}")
+
+# Класс работы с JSON файлами
+class JSONFileHandler:
+    def __init__(self):
+        pass
+
+# Функция чтения JSON файла
+    def read_file(self, filepath: str):
+        try:
+            with open(filepath, "r", encoding="utf-8") as jsonfile:
+                data = json.load(jsonfile)
+                return data
+        except FileNotFoundError:
+            return []
+        except PermissionError:
+            raise PermissionError(f"Нет прав на чтение файла {filepath}")
+
+# Функция записи JSON файла
+    def write_file(self, filepath: str, *data: dict):
+        try:
+            with open(filepath, "w", encoding="utf-8") as jsonfile:
+                json.dump(data, jsonfile, indent=4, ensure_ascii=False)
+        except PermissionError:
+            raise PermissionError(f"Нет прав на чтение файла {filepath}")
+
+# Функция добавления в JSON файл
+    def append_file(self, filepath: str, *data: dict):
+        try:
+            with open(filepath, "r", encoding="utf-8") as file:
+                data_dump = json.load(file)
+            data_dump.extend(data)
+            with open(filepath, "w", encoding="utf-8") as file:
+                json.dump(data_dump, file, indent=4, ensure_ascii=False)
+        except PermissionError:
+            raise PermissionError(f"Нет прав на чтение файла {filepath}")
