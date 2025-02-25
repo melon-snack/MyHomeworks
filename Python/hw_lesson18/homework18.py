@@ -36,3 +36,38 @@ class TxtFileHandler:
                 file.write(text)
         except PermissionError:
             raise PermissionError(f"Нет прав на чтение файла {filepath}")
+
+# Класс работы с CSV файлами
+class CSVFileHandler:
+    def __init__(self):
+        pass
+
+# Функция чтения CSV файла
+    def read_file(self, filepath: str):
+        try:
+            with open(filepath, "r", encoding='utf-8-sig') as file:
+                reader = csv.reader(file, delimiter=';')
+                result = list(reader)
+            return result
+        except FileNotFoundError:
+            return []
+        except PermissionError:
+            raise PermissionError(f"Нет прав на чтение файла {filepath}")
+
+# Функция записи CSV файла
+    def write_file(self, filepath: str, *data: dict):
+        try:
+            with open(filepath, "w", encoding='utf-8-sig', newline="") as file:
+                writer = csv.writer(file, delimiter=';')
+                writer.writerows(data)
+        except PermissionError:
+            raise PermissionError(f"Нет прав на чтение файла {filepath}")
+
+# Функция добавления в CSV файл
+    def append_file(self, filepath: str, *data: dict):
+        try:
+            with open(filepath, "a", encoding='utf-8-sig', newline="") as file:
+                writer = csv.writer(file, delimiter=';')
+                writer.writerow(data)
+        except PermissionError:
+            raise PermissionError(f"Нет прав на чтение файла {filepath}")
