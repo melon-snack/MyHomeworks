@@ -53,3 +53,34 @@ class ImageCompressor:
                 else:
                     print(f'Файл {file} не поддерживается.\n')
                     continue
+
+# Основная функция программы. Обрабатывает входной путь и запускает сжатие изображений
+def main(input_path: str) -> None:
+    register_heif_opener()
+    input_path = input_path.strip('"')  # Удаляем кавычки, если они есть
+
+# Принимает качество от пользователя и запускает ImageCompressor
+    user_quality = input("Введите нужное качество изображения\n По умолчанию - 50\n")
+    print(f'Запускается ImageCompressor с указанным качеством {user_quality}')
+    compress = ImageCompressor(user_quality)
+
+    if os.path.exists(input_path):
+        if os.path.isfile(input_path):
+            # Если указан путь к файлу, обрабатываем только этот файл
+            print(f"Обрабатываем файл: {input_path}")
+            output_path = os.path.splitext(input_path)[0] + '.heic'
+            compress.compress_image(input_path, output_path)
+        elif os.path.isdir(input_path):
+            # Если указан путь к директории, обрабатываем все файлы в ней
+            print(f"Обрабатываем директорию: {input_path}")
+            compress.process_directory(input_path)
+            # Функция process_directory рекурсивно обойдет все поддиректории
+            # и обработает все поддерживаемые изображения
+    else:
+        print("Указанный путь не существует")
+
+# Запуск main
+if __name__ == "__main__":
+    user_input: str = input("Введите путь к файлу или директории:\n")
+    main(user_input)
+
