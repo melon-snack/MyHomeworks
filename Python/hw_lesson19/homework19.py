@@ -39,3 +39,17 @@ class ImageCompressor:
         with Image.open(input_path) as img:
             img.save(output_path, "HEIF", quality=50)
         print(f"Сжато: {input_path} -> {output_path}")
+
+# Функция, обрабатывающая все изображения в указанной директории и её поддиректориях
+    def process_directory(self, directory: str) -> None:
+        for root, _, files in os.walk(directory):
+            for file in files:
+            # Проверяем расширение файла
+                print(f'Проверяем расширение файла {file}')
+                if file.lower().endswith(('.jpg', '.jpeg', '.png', '.webp')):
+                    input_path = os.path.join(root, file)
+                    output_path = os.path.splitext(input_path)[0] + '.heic'
+                    self.compress_image(input_path, output_path)
+                else:
+                    print(f'Файл {file} не поддерживается.\n')
+                    continue
