@@ -20,3 +20,16 @@ class ImageCompressor:
         if quality < 0:
             print("Указано отрицательное качество, выставляю качество по-умолчанию (50)\n")
             return False
+
+# Setter, устанавливающий качество сжатия
+    def quality_set(self, quality:int):
+        self.__validate_quality(quality)
+        if self.__validate_quality(quality) is False:
+            self.__quality = 50
+        else:
+            self.__quality = quality
+        return self.__quality
+
+# Getter, который берёт качество сжатия
+    def quality_get(self) -> int:
+        return self.__quality
