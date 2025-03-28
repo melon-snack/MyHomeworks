@@ -29,7 +29,10 @@ class AbstractFile(ABC):
 
 class JsonFile(AbstractFile):
 
-    # Функция чтения JSON файла
+    """
+    Функция чтения JSON файла.
+    При попытке прочитать несуществующий файл, выдаёт пустой список.
+    """
     def read(self) -> list[dict]:
         try:
             with open(self.file_path, "r", encoding=self.encoding) as file:
@@ -43,7 +46,10 @@ class JsonFile(AbstractFile):
         with open(self.file_path, "w", encoding=self.encoding) as jsonfile:
             json.dump(data, jsonfile, indent=4, ensure_ascii=False)
 
-# Функция добавления в JSON файл
+    """
+    Функция добавления в JSON файл.
+    При попытке изменить несуществующий файл, создаёт новый файл JSON с указанными данными.
+    """
     def append(self, *data: dict) -> None:
         try:
             with open(self.file_path, "r", encoding=self.encoding) as file:
@@ -72,7 +78,10 @@ class TxtFile(AbstractFile):
             write_data = "\n".join(data)
             file.write(write_data)
 
-# Функция добавления в txt файл
+    """
+    Функция добавления в txt файл.
+    Если файл не существует, записывает текст без отступа, иначе добавляет текст с отступом.
+    """
     def append(self, *data:str) -> None:
         with open(self.file_path, "a", encoding=self.encoding) as file:
             if os.path.isfile(self.file_path):
@@ -90,7 +99,10 @@ class CSVFile(AbstractFile):
 
     fields = ['name', 'age']
 
-# Функция чтения CSV файла
+    """
+    Функция чтения CSV файла.
+    При попытке прочитать несуществующий файл, выдаёт пустой список.
+    """
     def read(self):
         try:
             with open(self.file_path, "r", encoding=self.encoding) as file:
@@ -107,7 +119,10 @@ class CSVFile(AbstractFile):
             writer.writeheader()
             writer.writerows(data)
 
-# Функция добавления в CSV файл
+    """
+    Функция добавления в CSV файл.
+    При попытке изменить несуществующий файл, создаёт новый.
+    """
     def append(self, data:list[dict]):
         with open(self.file_path, "a", encoding=self.encoding) as file:
             if os.path.isfile(self.file_path):
