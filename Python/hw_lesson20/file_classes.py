@@ -88,7 +88,7 @@ class CSVFile(AbstractFile):
     def read(self):
         try:
             with open(self.file_path, "r", encoding=self.encoding) as file:
-                reader = csv.reader(file, delimiter=';')
+                reader = csv.DictReader(file, delimiter=';')
                 result = list(reader)
             return result
         except FileNotFoundError:
