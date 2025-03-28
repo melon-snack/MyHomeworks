@@ -48,3 +48,28 @@ class JsonFile(AbstractFile):
         except FileNotFoundError:
             with open(self.file_path, "w", encoding=self.encoding) as jsonfile:
                 json.dump(data, jsonfile, indent=4, ensure_ascii=False)
+
+class TxtFile(AbstractFile):
+
+    def read(self) -> list[str]:
+        try:
+            with open(self.file_path, "r", encoding=self.encoding) as file:
+                clear_data = [string.strip() for string in file.readlines()]
+                return clear_data
+        except FileNotFoundError:
+            return ""
+
+    def write(self, *data:str) -> None:
+        with open(self.file_path, "w", encoding=self.encoding) as file:
+            write_data = "\n".join(data)
+            file.write(write_data)
+
+    def append(self, *data:str) -> None:
+        with open(self.file_path, "a", encoding=self.encoding) as file:
+            if os.path.isfile(self.file_path):
+                file.write("\n")
+                write_data = "\n".join(data)
+                file.write(write_data)
+            else:
+                write_data = "\n".join(data)
+                file.write(write_data)
