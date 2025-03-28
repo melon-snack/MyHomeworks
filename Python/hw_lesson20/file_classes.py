@@ -54,6 +54,7 @@ class JsonFile(AbstractFile):
 
 class TxtFile(AbstractFile):
 
+# Функция чтения txt файла
     def read(self) -> list[str]:
         try:
             with open(self.file_path, "r", encoding=self.encoding) as file:
@@ -62,11 +63,13 @@ class TxtFile(AbstractFile):
         except FileNotFoundError:
             return ""
 
+# Функция записи txt файла
     def write(self, *data:str) -> None:
         with open(self.file_path, "w", encoding=self.encoding) as file:
             write_data = "\n".join(data)
             file.write(write_data)
 
+# Функция добавления в txt файл
     def append(self, *data:str) -> None:
         with open(self.file_path, "a", encoding=self.encoding) as file:
             if os.path.isfile(self.file_path):
