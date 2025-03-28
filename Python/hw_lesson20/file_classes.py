@@ -73,3 +73,38 @@ class TxtFile(AbstractFile):
             else:
                 write_data = "\n".join(data)
                 file.write(write_data)
+
+class CSVFile(AbstractFile):
+    def __init__(self, file_path, encoding="utf-8-sig"):
+        super().__init__(file_path)
+        self.encoding = encoding
+
+    fields = ['name', 'age']
+
+# Функция чтения CSV файла
+    def read(self):
+        try:
+            with open(self.file_path, "r", encoding=self.encoding) as file:
+                reader = csv.reader(file, delimiter=';')
+                result = list(reader)
+            return result
+        except FileNotFoundError:
+            return []
+
+# Функция записи CSV файла
+    def write(self, data:list[dict]):
+        with open(self.file_path, "w", encoding=self.encoding, newline="") as file:
+            writer = csv.DictWriter(file, fieldnames=self.fields, delimiter=';')
+            writer.writeheader()
+            writer.writerows(data)
+
+# Функция добавления в CSV файл
+    def append(self, data:list[dict]):
+        with open(self.file_path, "a", encoding=self.encoding) as file:
+            if os.path.isfile(self.file_path):
+                writer = csv.DictWriter(file, fieldnames=self.fields, delimiter=';')
+                writer.writerows(data)
+            else:
+                writer = csv.DictWriter(file, fieldnames=self.fields, delimiter=';')
+                writer.writeheader()
+                writer.writerows(data)
