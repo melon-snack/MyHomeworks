@@ -31,9 +31,12 @@ class JsonFile(AbstractFile):
 
     # Функция чтения JSON файла
     def read(self) -> list[dict]:
-        with open(self.file_path, "r", encoding=self.encoding) as file:
-            data = json.load(file)
-            return data
+        try:
+            with open(self.file_path, "r", encoding=self.encoding) as file:
+                data = json.load(file)
+                return data
+        except FileNotFoundError:
+            return []
 
 # Функция записи JSON файла
     def write(self, *data: dict) -> None:
