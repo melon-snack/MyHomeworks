@@ -97,8 +97,6 @@ class CSVFile(AbstractFile):
         super().__init__(file_path)
         self.encoding = encoding
 
-    fields = ['name', 'age']
-
     """
     Функция чтения CSV файла.
     При попытке прочитать несуществующий файл, выдаёт пустой список.
@@ -115,7 +113,7 @@ class CSVFile(AbstractFile):
 # Функция записи CSV файла
     def write(self, data:list[dict]):
         with open(self.file_path, "w", encoding=self.encoding, newline="") as file:
-            writer = csv.DictWriter(file, fieldnames=self.fields, delimiter=';')
+            writer = csv.DictWriter(file, fieldnames=data[0].keys(), delimiter=';')
             writer.writeheader()
             writer.writerows(data)
 
@@ -126,9 +124,9 @@ class CSVFile(AbstractFile):
     def append(self, data:list[dict]):
         with open(self.file_path, "a", encoding=self.encoding) as file:
             if os.path.isfile(self.file_path):
-                writer = csv.DictWriter(file, fieldnames=self.fields, delimiter=';')
+                writer = csv.DictWriter(file, fieldnames=data[0].keys(), delimiter=';')
                 writer.writerows(data)
             else:
-                writer = csv.DictWriter(file, fieldnames=self.fields, delimiter=';')
+                writer = csv.DictWriter(file, fieldnames=data[0].keys(), delimiter=';')
                 writer.writeheader()
                 writer.writerows(data)
