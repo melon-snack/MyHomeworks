@@ -9,14 +9,17 @@ class AbstractFile(ABC):
         self.file_path = file_path
         self.encoding = encoding
 
+# Абстрактная функция чтения
     @abstractmethod
     def read(self):
         pass
 
+# Абстрактная функция записи
     @abstractmethod
     def write(self):
         pass
 
+# Абстрактная функция изменения
     @abstractmethod
     def append(self):
         pass
