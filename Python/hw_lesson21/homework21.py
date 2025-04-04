@@ -2,8 +2,9 @@
 from dataclasses import dataclass, field
 import json
 
-JSON_DATA = 'MyHomeworks\\Python\\hw_lesson21\\cities.json'
+JSON_DATA = 'MyHomeworks\\Python\\hw_lesson21\\cities.json' # Необходимо указать путь на cities.json для корректной работы
 
+# Класс для чтения json файлов
 class JsonFile:
     def __init__(self, file_path: str, encoding="utf-8"):
         self.file_path = file_path
@@ -17,6 +18,11 @@ class JsonFile:
         except FileNotFoundError:
             return []
 
+"""
+Датакласс для хранения информации полученной из cities.json.
+Также проверяет если name является строкой и population не является нулём,
+иначе выдаёт ошибку.
+"""
 @dataclass
 class City:
     name: str = field(compare=False)
@@ -39,6 +45,7 @@ class City:
         if not isinstance(self.population, int) or self.population <= 0:
             raise ValueError('Population должно содержать положительное число')
 
+# Класс, создающий внутренний список экземпляров
 class CitiesSerializer:
     def __init__(self, city_data: list[dict]):
         self.city_data = city_data
