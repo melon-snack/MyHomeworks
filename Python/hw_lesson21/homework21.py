@@ -2,7 +2,7 @@
 from dataclasses import dataclass, field
 import json
 
-JSON_DATA = 'MyHomeworks\\Python\\hw_lesson21\\citi.py'
+JSON_DATA = 'MyHomeworks\\Python\\hw_lesson21\\cities.json'
 
 class JsonFile:
     def __init__(self, file_path: str, encoding="utf-8"):
