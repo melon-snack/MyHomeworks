@@ -38,3 +38,26 @@ class City:
     def __validate_population(self):
         if not isinstance(self.population, int) or self.population <= 0:
             raise ValueError('Population должно содержать положительное число')
+
+class CitiesSerializer:
+    def __init__(self, city_data: list[dict]):
+        self.city_data = city_data
+        self.cities = self.__create_cities()
+
+    def __deserialize_city(self, city_dict: dict) -> City:
+        instance = City(
+            name=city_dict['name'],
+            population=city_dict['population'],
+            subject=city_dict['subject'],
+            district=city_dict['district'],
+            latitude=city_dict['coords']['lat'],
+            longitude=city_dict['coords']['lon'],
+        )
+
+        return instance
+
+    def __create_cities(self) -> list:
+        return [self.__deserialize_city(city) for city in self.city_data]
+
+    def get_all_cities(self) -> list[City]:
+        return self.cities
