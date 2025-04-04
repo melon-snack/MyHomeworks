@@ -2,7 +2,7 @@
 from dataclasses import dataclass, field
 import json
 
-JSON_DATA = 'MyHomeworks\\Python\\hw_lesson21\\homework21.py'
+JSON_DATA = 'MyHomeworks\\Python\\hw_lesson21\\citi.py'
 
 class JsonFile:
     def __init__(self, file_path: str, encoding="utf-8"):
@@ -61,3 +61,10 @@ class CitiesSerializer:
 
     def get_all_cities(self) -> list[City]:
         return self.cities
+
+# ТЕСТ
+json_handler = JsonFile(JSON_DATA)
+city_data = json_handler.read()
+cities_serializer = CitiesSerializer(city_data)
+cities = cities_serializer.get_all_cities()
+print(f'{cities[0]}\n{cities[1]}\n{cities[3]}')
