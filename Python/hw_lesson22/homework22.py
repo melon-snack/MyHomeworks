@@ -81,3 +81,33 @@ class CityGame:
         self.cities_used = set()
         self.current_city = None
 
+    def human_turn(self, city_input: str) -> bool:
+        """
+        Обрабатывает ход человека: проверяет корректность введенного названия и обновляет состояние.
+
+        :param city_input: Название города, введенное игроком.
+        :return: True, если ход корректен, иначе False.
+        """
+        city_input = city_input.strip().capitalize()
+
+        if not city_input:
+            print("Ошибка! Название города - пустое.")
+            return False
+
+        if self.current_city and not city_input.startswith(self.current_city[-1].upper()):
+            print(f"Ошибка! Город должен начинаться на букву '{self.current_city[-1].upper()}'.")
+            return False
+
+        city = next((c for c in self.cities if c.name == city_input), None)
+        if not city:
+            print("Ошибка. В базе нет такого города.")
+            return False
+
+        if city.is_used:
+            print("Ошибка! Этот город уже использован.")
+            return False
+
+        city.is_used = True
+        self.cities_used.add(city.name)
+        self.current_city = city.name
+        return True
