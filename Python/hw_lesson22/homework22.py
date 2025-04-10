@@ -134,3 +134,16 @@ class CityGame:
         self.cities_used.add(com_city_pick.name)
         self.current_city = com_city_pick.name
         return com_city_pick.name
+
+    def check_game_over(self) -> bool:
+        """
+        Проверяет наличие возможных ходов и определяет завершение игры.
+
+        :return: True, если игра завершена, иначе False.
+        """
+        if not self.current_city:
+            return False
+
+        last_char = self.current_city[-1].upper()
+        check_cities = [city for city in self.cities if not city.is_used and city.name.startswith(last_char)]
+        return len(check_cities) == 0
