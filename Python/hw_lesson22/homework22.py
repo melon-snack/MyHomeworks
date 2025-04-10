@@ -70,3 +70,14 @@ class CitiesSerializer:
     def get_all_cities(self) -> list[City]:
         return self.cities
 
+class CityGame:
+    def __init__(self, cities_serializer: CitiesSerializer):
+        """
+        Инициализирует игру на основе списка городов.
+
+        :param cities_serializer: Сериализатор, содержащий список объектов City.
+        """
+        self.cities = cities_serializer.get_all_cities()
+        self.cities_used = set()
+        self.current_city = None
+
