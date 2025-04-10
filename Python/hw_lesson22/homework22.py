@@ -111,3 +111,26 @@ class CityGame:
         self.cities_used.add(city.name)
         self.current_city = city.name
         return True
+
+    def computer_turn(self) -> str:
+        """
+        Находит подходящий город для хода компьютера и обновляет состояние игры.
+
+        :return: Название города, выбранного компьютером.
+        """
+        if not self.current_city:
+            # Если это первый ход, компьютер выбирает случайный город
+            check_cities = [city for city in self.cities if not city.is_used]
+        else:
+            # Иначе, компьютер выбирает город, начинающийся на последнюю букву предыдущего города
+            last_char = self.current_city[-1].upper()
+            check_cities = [city for city in self.cities if not city.is_used and city.name.startswith(last_char)]
+
+        if not check_cities:
+            return ""
+
+        com_city_pick = random.choice(check_cities)
+        com_city_pick.is_used = True
+        self.cities_used.add(com_city_pick.name)
+        self.current_city = com_city_pick.name
+        return com_city_pick.name
