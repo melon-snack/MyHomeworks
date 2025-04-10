@@ -147,3 +147,61 @@ class CityGame:
         last_char = self.current_city[-1].upper()
         check_cities = [city for city in self.cities if not city.is_used and city.name.startswith(last_char)]
         return len(check_cities) == 0
+
+class GameManager:
+    def __init__(self, json_file: JsonFile, cities_serializer: CitiesSerializer, city_game: CityGame):
+        """
+        Инициализирует менеджер игры.
+
+        :param json_file: Обработчик JSON-файла.
+        :param cities_serializer: Сериализатор, содержащий список объектов City.
+        :param city_game: Логика игры.
+        """
+        self.json_file = json_file
+        self.cities_serializer = cities_serializer
+        self.city_game = city_game
+
+    def __call__(self):
+        """
+        Запускает игру, организуя последовательность ходов до завершения игры.
+        """
+        self.run_game()
+
+    def run_game(self):
+        """
+        Координирует взаимодействие между компонентами и обеспечивает логическую последовательность ходов.
+        """
+        print("Запуск игры 'Города'...")
+        print("Игра запущена.")
+        print("Компьютер делает первый ход...")
+
+        while True:
+            computer_city = self.city_game.computer_turn()
+            if not computer_city:
+                print("Ход компьютера невозможен. Вы выиграли!")
+                break
+            print(f"Город компьютера: {computer_city}")
+
+            if self.city_game.check_game_over():
+                print("Вы проиграли игру!")
+                break
+
+            while True:
+                city_input = input("Ваш ход (введите название города или 'стоп' для завершения игры): ")
+                if city_input.lower() == "стоп":
+                    print("Игра остановлена. Спасибо за участие!")
+                    return
+                if self.city_game.human_turn(city_input):
+                    break
+
+            if self.city_game.check_game_over():
+                print("Ход компьютера невозможен. Вы выиграли!")
+                break
+
+if __name__ == "__main__":
+    json_file = JsonFile(JSON_DATA)
+    cities_data = json_file.read()
+    cities_serializer = CitiesSerializer(cities_data)
+    city_game = CityGame(cities_serializer)
+    game_manager = GameManager(json_file, cities_serializer, city_game)
+    game_manager()
