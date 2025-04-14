@@ -28,3 +28,15 @@ class PalindromeContext:
 
     def check(self, text: str) -> bool:
         return self._strategy.is_palindrome(text)
+
+class PalindromeFacade:
+
+    def __init__(self):
+        self.context = PalindromeContext(PalindromeStrategy)
+
+    def check_palindrome(self, text: str) -> bool:
+        if len(text.split()) > 1:
+            self.context.set_strategy(MultiWordPalindrome())
+        else:
+            self.context.set_strategy(SingleWordPalindrome())
+        return self.context.check(text)
