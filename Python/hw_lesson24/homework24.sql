@@ -62,3 +62,8 @@ SELECT name, EYE, HAIR FROM MarvelCharacters
 WHERE
     EYE = 'Yellow Eyes'
     AND HAIR = 'Red Hair'
+
+-- 9. Персонажи с ограниченным количеством появлений
+SELECT name, APPEARANCES FROM MarvelCharacters
+WHERE
+    APPEARANCES < 10
