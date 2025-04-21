@@ -67,3 +67,8 @@ WHERE
 SELECT name, APPEARANCES FROM MarvelCharacters
 WHERE
     APPEARANCES < 10
+
+-- 10. Персонажи с наибольшим количеством появлений
+SELECT name, APPEARANCES FROM MarvelCharacters
+ORDER BY APPEARANCES DESC
+LIMIT 5
