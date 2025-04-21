@@ -17,3 +17,7 @@ WHERE
     AND EYE IS NOT 'Blue Eyes'
     AND EYE IS NOT 'Brown Eyes'
     AND EYE IS NOT 'Green Eyes'
+
+-- 3. Персонажи с изменяющимся цветом волос
+SELECT name, HAIR FROM MarvelCharacters
+WHERE HAIR = 'Variable Hair'
