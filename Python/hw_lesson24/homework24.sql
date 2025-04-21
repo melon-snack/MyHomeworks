@@ -21,3 +21,11 @@ WHERE
 -- 3. Персонажи с изменяющимся цветом волос
 SELECT name, HAIR FROM MarvelCharacters
 WHERE HAIR = 'Variable Hair'
+
+-- 4. Женские персонажи с редким цветом глаз
+SELECT name, EYE FROM MarvelCharacters
+WHERE
+    EYE = 'Gold Eyes'
+    AND SEX = 'Female Characters'
+    OR EYE = 'Amber Eyes'
+    AND SEX = 'Female Characters'
