@@ -29,3 +29,9 @@ WHERE
     AND SEX = 'Female Characters'
     OR EYE = 'Amber Eyes'
     AND SEX = 'Female Characters'
+
+-- 5. Персонажи без двойной идентичности, сортированные по году появления
+SELECT name, FIRST_APPEARANCE, Year FROM MarvelCharacters
+WHERE
+    identify = 'No Dual Identity'
+ORDER BY Year DESC
