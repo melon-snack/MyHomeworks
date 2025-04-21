@@ -56,3 +56,9 @@ WHERE
 SELECT name, FIRST_APPEARANCE, Year FROM MarvelCharacters
 WHERE
     Year BETWEEN 1960 AND 1969
+
+-- 8. Персонажи с уникальным сочетанием цвета глаз и волос
+SELECT name, EYE, HAIR FROM MarvelCharacters
+WHERE
+    EYE = 'Yellow Eyes'
+    AND HAIR = 'Red Hair'
