@@ -51,3 +51,8 @@ WHERE
     AND HAIR IS NOT 'Black Hair'
     AND HAIR IS NOT 'Blond Hair'
     AND HAIR IS NOT 'Red Hair'
+
+-- 7. Персонажи, появившиеся в определённое десятилетие
+SELECT name, FIRST_APPEARANCE, Year FROM MarvelCharacters
+WHERE
+    Year BETWEEN 1960 AND 1969
