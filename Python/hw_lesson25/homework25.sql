@@ -107,3 +107,16 @@ WHERE
         SELECT MIN(APPEARANCES)
         FROM MarvelCharacters
     );
+
+-- 14. Персонажи с определенным цветом волос и максимальными появлениями среди такого цвета
+SELECT name, HAIR AS color, APPEARANCES
+FROM MarvelCharacters mc_1
+WHERE
+    HAIR IS NOT NULL
+    AND APPEARANCES = (
+        SELECT MAX(APPEARANCES)
+        FROM MarvelCharacters mc_2
+        WHERE mc_1.HAIR = mc_2.HAIR
+    )
+GROUP BY HAIR
+ORDER BY APPEARANCES DESC;
