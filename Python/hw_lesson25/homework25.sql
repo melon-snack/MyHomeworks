@@ -30,3 +30,10 @@ FROM MarvelCharacters
 WHERE identify = 'Public Identity'
 GROUP BY identify
 ORDER BY MIN(APPEARANCES) DESC;
+
+-- 5. Общее количество персонажей по полу
+SELECT SEX, COUNT(*) AS sex_count
+FROM MarvelCharacters
+WHERE SEX IS NOT NULL
+GROUP BY SEX
+ORDER BY sex_count DESC;
