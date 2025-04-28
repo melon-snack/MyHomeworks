@@ -37,3 +37,10 @@ FROM MarvelCharacters
 WHERE SEX IS NOT NULL
 GROUP BY SEX
 ORDER BY sex_count DESC;
+
+-- 6. Средний год первого появления персонажей с различным типом личности
+SELECT identify, AVG(Year)
+FROM MarvelCharacters
+WHERE identify IS NOT NULL
+GROUP BY identify
+ORDER BY AVG(Year) DESC;
