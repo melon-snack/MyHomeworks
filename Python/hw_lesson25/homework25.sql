@@ -59,3 +59,12 @@ SELECT HAIR AS color, MAX(APPEARANCES), MIN(APPEARANCES)
 FROM MarvelCharacters
 WHERE HAIR IS NOT NULL
 GROUP BY HAIR;
+
+-- 9. Количество персонажей с различным типом личности среди умерших
+SELECT identify, COUNT(*) as id_count
+FROM MarvelCharacters
+WHERE
+    identify IS NOT NULL
+    AND ALIVE = 'Deceased Characters'
+GROUP BY identify
+ORDER BY id_count DESC;
