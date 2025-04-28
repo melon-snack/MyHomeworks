@@ -120,3 +120,14 @@ WHERE
     )
 GROUP BY HAIR
 ORDER BY APPEARANCES DESC;
+
+-- 15. Персонажи с публичной личностью и наименьшим количеством появлений
+SELECT name, identify, APPEARANCES
+FROM MarvelCharacters
+WHERE
+    identify = 'Public Identity'
+    AND APPEARANCES = (
+        SELECT MIN(APPEARANCES)
+        FROM MarvelCharacters
+        WHERE identify = 'Public Identity'
+    );
