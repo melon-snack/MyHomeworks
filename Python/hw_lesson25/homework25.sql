@@ -53,3 +53,9 @@ WHERE
     AND ALIVE = 'Living Characters'
 GROUP BY EYE
 ORDER BY eye_count DESC;
+
+-- 8. Максимальное и минимальное количество появлений среди персонажей с определенным цветом волос
+SELECT HAIR AS color, MAX(APPEARANCES), MIN(APPEARANCES)
+FROM MarvelCharacters
+WHERE HAIR IS NOT NULL
+GROUP BY HAIR;
