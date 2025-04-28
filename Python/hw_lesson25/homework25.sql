@@ -85,3 +85,15 @@ WHERE APPEARANCES = (
     SELECT MAX(APPEARANCES)
     FROM MarvelCharacters
 );
+
+-- 12. Персонажи, впервые появившиеся в том же году, что и персонаж с максимальными появлениями
+SELECT name, Year
+FROM MarvelCharacters
+WHERE Year = (
+    SELECT Year
+    FROM MarvelCharacters
+    WHERE APPEARANCES = (
+        SELECT MAX(APPEARANCES)
+        FROM MarvelCharacters
+    )
+);
