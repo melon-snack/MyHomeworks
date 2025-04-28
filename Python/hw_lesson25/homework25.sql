@@ -68,3 +68,10 @@ WHERE
     AND ALIVE = 'Deceased Characters'
 GROUP BY identify
 ORDER BY id_count DESC;
+
+-- 10. Средний год первого появления персонажей с различным цветом глаз
+SELECT EYE AS color, AVG(Year)
+FROM MarvelCharacters
+WHERE EYE IS NOT NULL
+GROUP BY EYE
+ORDER BY AVG(Year) DESC;
