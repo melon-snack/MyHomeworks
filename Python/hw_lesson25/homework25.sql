@@ -75,3 +75,13 @@ FROM MarvelCharacters
 WHERE EYE IS NOT NULL
 GROUP BY EYE
 ORDER BY AVG(Year) DESC;
+
+-- Подзапросы
+
+-- 11. Персонаж с наибольшим количеством появлений
+SELECT name, APPEARANCES
+FROM MarvelCharacters
+WHERE APPEARANCES = (
+    SELECT MAX(APPEARANCES)
+    FROM MarvelCharacters
+);
