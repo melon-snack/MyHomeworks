@@ -44,3 +44,12 @@ FROM MarvelCharacters
 WHERE identify IS NOT NULL
 GROUP BY identify
 ORDER BY AVG(Year) DESC;
+
+-- 7. Количество персонажей с разным цветом глаз среди живых
+SELECT EYE AS color, COUNT(*) AS eye_count
+FROM MarvelCharacters
+WHERE
+    EYE IS NOT NULL
+    AND ALIVE = 'Living Characters'
+GROUP BY EYE
+ORDER BY eye_count DESC;
