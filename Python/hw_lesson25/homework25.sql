@@ -23,3 +23,10 @@ FROM MarvelCharacters
 WHERE HAIR IS NOT NULL
 GROUP BY HAIR
 ORDER BY MAX(APPEARANCES) DESC;
+
+-- 4. Минимальное количество появлений среди персонажей с известной и публичной личностью
+SELECT identify, MIN(APPEARANCES)
+FROM MarvelCharacters
+WHERE identify = 'Public Identity'
+GROUP BY identify
+ORDER BY MIN(APPEARANCES) DESC;
