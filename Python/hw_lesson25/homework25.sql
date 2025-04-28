@@ -97,3 +97,13 @@ WHERE Year = (
         FROM MarvelCharacters
     )
 );
+
+-- 13. Персонажи с наименьшим количеством появлений среди живых
+SELECT name, APPEARANCES
+FROM MarvelCharacters
+WHERE
+    ALIVE = 'Living Characters'
+    AND APPEARANCES = (
+        SELECT MIN(APPEARANCES)
+        FROM MarvelCharacters
+    );
