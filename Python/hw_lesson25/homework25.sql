@@ -16,3 +16,10 @@ FROM MarvelCharacters
 WHERE EYE IS NOT NULL
 GROUP BY EYE
 ORDER BY AVG(APPEARANCES) DESC;
+
+-- 3. Максимальное количество появлений у персонажей с определенным цветом волос
+SELECT HAIR AS color, MAX(APPEARANCES)
+FROM MarvelCharacters
+WHERE HAIR IS NOT NULL
+GROUP BY HAIR
+ORDER BY MAX(APPEARANCES) DESC;
