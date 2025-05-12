@@ -15,3 +15,14 @@ CREATE TABLE IF NOT EXISTS Services (
     description TEXT,
     price INTEGER
 );
+
+-- Создание таблицы записи на услуги
+CREATE TABLE IF NOT EXISTS Appointments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    phone TEXT,
+    дата DATE DEFAULT CURRENT_TIMESTAMP,
+    master_id INTEGER DEFAULT NULL,
+    status TEXT,
+    FOREIGN KEY (master_id) REFERENCES Masters(id) ON DELETE SET DEFAULT ON UPDATE CASCADE
+);
