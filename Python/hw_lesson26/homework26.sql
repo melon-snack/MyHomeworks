@@ -7,3 +7,11 @@ CREATE TABLE IF NOT EXISTS Masters (
     middle_name TEXT,
     phone TEXT
 );
+
+-- Создание таблицы услуг
+CREATE TABLE IF NOT EXISTS Services (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT UNIQUE,
+    description TEXT,
+    price INTEGER
+);
