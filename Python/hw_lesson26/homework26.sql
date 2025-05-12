@@ -26,3 +26,22 @@ CREATE TABLE IF NOT EXISTS Appointments (
     status TEXT,
     FOREIGN KEY (master_id) REFERENCES Masters(id) ON DELETE SET DEFAULT ON UPDATE CASCADE
 );
+
+-- Связующие таблицы
+-- Таблица для связи мастеров и услуг
+CREATE TABLE IF NOT EXISTS masters_services (
+    master_id INTEGER DEFAULT NULL,
+    service_id INTEGER DEFAULT NULL,
+    FOREIGN KEY (master_id) REFERENCES Masters(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
+    FOREIGN KEY (service_id) REFERENCES Services(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
+    PRIMARY KEY (master_id, service_id)
+);
+
+-- Таблица для связи записей и услуг
+CREATE TABLE IF NOT EXISTS appointments_services (
+    appointment_id INTEGER DEFAULT NULL,
+    service_id INTEGER DEFAULT NULL,
+    FOREIGN KEY (appointment_id) REFERENCES Appointments(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
+    FOREIGN KEY (service_id) REFERENCES Services(id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
+    PRIMARY KEY (appointment_id, service_id)
+);
