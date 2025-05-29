@@ -34,3 +34,22 @@ def execute_script(conn, script: str) -> None:
         print(f"Ошибка при выполнении скрипта: {e}")
     finally:
         cursor.close()
+
+# Поиск записей по телефону
+def find_appointment_by_phone(conn, phone: str) -> list[tuple]:
+    """
+    Функция поиска записей по номеру телефона.
+    conn = курсор
+    phone: str = номер телефона для поиска
+    """
+    cursor = conn.cursor()
+    SQL_SCRIPT = """
+SELECT a.id, a.name, a.phone, a.дата, a.comment, a.status, m.first_name, m.last_name
+FROM appointments a
+JOIN masters m ON a.master_id = m.id
+WHERE a.phone = ?;
+"""
+    cursor.execute(SQL_SCRIPT, (phone,))
+    results = cursor.fetchall()
+    cursor.close()
+    return results
