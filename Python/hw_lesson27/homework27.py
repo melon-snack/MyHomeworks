@@ -73,3 +73,53 @@ WHERE a.comment LIKE ?;
     results = cursor.fetchall()
     cursor.close()
     return results
+
+# Создание записи
+def create_appointment(conn, client_name: str, client_phone: str, master_name: str, services_list: list[str], comment: str = None) -> int:
+    """
+    Создаёт запись в таблице клиентов. Возвращает ID созданной записи.
+    cann - курсор
+    
+    client_name, client_phone, master_name, services_list, comment - данные для занесения в таблицу (слева на право: имя клиента, телефон клиента, имя мастера, услуга, коммент)
+    """
+    cursor = conn.cursor()
+    
+    # -запуск транзакции
+    conn.execute("BEGIN")
+
+    # -ищем мастера по указанному имени
+    cursor.execute("SELECT id FROM Masters WHERE first_name = ?", (master_name,))
+    master = cursor.fetchone()
+
+    if not master:
+        cursor.execute("ROLLBACK")
+        raise ValueError(f"Мастер с именем {master_name} не найден")
+    
+    # -получаем ID мастера
+    master_id = master[0]
+
+    # -создаём запись в таблице Appointments
+    cursor.execute(
+        "INSERT INTO Appointments (name, phone, master_id, comment) VALUES (?, ?, ?, ?)", 
+        (client_name, client_phone, master_id, comment)
+    )
+
+    # -получаем ID записи
+    appointment_id = cursor.lastrowid
+
+    for service_title in services_list:
+        cursor.execute("SELECT id FROM Services WHERE title = ?", (service_title,))
+        service = cursor.fetchone()
+        if not service:
+            cursor.execute("ROLLBACK")
+            raise ValueError(f"Услуга {service_title} не найдена.\n")
+        service_id = service[0]
+        cursor.execute(
+            "INSERT INTO appointments_services (appointment_id, service_id) VALUES (?, ?)",
+            (appointment_id, service_id)
+        )
+
+    # -фиксация изменений
+    cursor.execute("COMMIT")
+    cursor.close()
+    return appointment_id
