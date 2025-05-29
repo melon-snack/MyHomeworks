@@ -53,3 +53,23 @@ WHERE a.phone = ?;
     results = cursor.fetchall()
     cursor.close()
     return results
+
+# Поиск записей по комменту
+def find_appointment_by_comment(conn, comment_part: str) -> list[tuple]:
+    """
+    Функция поиска записей по комментарию.
+    conn = курсор
+    comment_part = комметарий для поиска (можно ввести только часть комментария)
+    """
+    cursor = conn.cursor()
+    SQL_SCRIPT = """
+SELECT a.id, a.name, a.phone, a.дата, a.comment, a.status, m.first_name, m.last_name
+FROM appointments a
+JOIN masters m ON a.master_id = m.id
+WHERE a.comment LIKE ?;
+"""
+
+    cursor.execute(SQL_SCRIPT, (f"%{comment_part}%",))
+    results = cursor.fetchall()
+    cursor.close()
+    return results
