@@ -8,3 +8,12 @@ SQL_SCRIPT = "MyHomeworks\\Python\\hw_lesson27\\homework27.sql"
 DB_FILE = "MyHomeworks\\Python\\hw_lesson27\\barbershop.db"
 
 connection: Connection = connect(DB_FILE)
+
+# Читает SQL файл и возвращает его содержимое
+def read_sql_file(filepath: str) -> str:
+    """
+    Функция для чтения SQL файла.
+    filepath: str = путь к файлу
+    """
+    with open(filepath, "r", encoding="utf-8") as file:
+        return file.read()
