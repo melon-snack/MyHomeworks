@@ -17,3 +17,20 @@ def read_sql_file(filepath: str) -> str:
     """
     with open(filepath, "r", encoding="utf-8") as file:
         return file.read()
+
+# Выполняет SQL скрипт
+def execute_script(conn, script: str) -> None:
+    """
+    Функция запуска скрипта SQL.
+    conn = курсор
+    script: str = путь к SQL файлу
+    """
+    cursor = conn.cursor()
+    try:
+        cursor.executescript(script)
+        conn.commit()
+        print('Script complete')
+    except Exception as e:
+        print(f"Ошибка при выполнении скрипта: {e}")
+    finally:
+        cursor.close()
