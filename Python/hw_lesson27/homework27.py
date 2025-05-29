@@ -123,3 +123,54 @@ def create_appointment(conn, client_name: str, client_phone: str, master_name: s
     cursor.execute("COMMIT")
     cursor.close()
     return appointment_id
+
+# Проверка функций
+if __name__ == "__main__":
+    # 1й Этап
+    sql_script = read_sql_file(SQL_SCRIPT)
+    cursor = connection.cursor()
+    execute_script(connection, sql_script)
+
+    cursor.close()
+    connection.close()
+
+# Поиск по телефону
+    phone_input = input("Введите номер телефона для поиска:\n")
+    appointments = find_appointment_by_phone(connection, phone_input)
+    print("Результаты:\n")
+    if appointments:
+        print(tabulate(appointments, headers=["ID", "Имя клиента", "Телефон", "Дата", "Комментарий", "Статус", "Имя мастера", "Фамилия мастера"], tablefmt="grid"))
+    else:
+        print("Записи не найдены.")
+
+# Поиск по комментарию
+    comment_input = input("Введите комментарий или его часть.\n")
+    appointments = find_appointment_by_comment(connection, comment_input)
+    print("Результаты:\n")
+    if appointments:
+        print(tabulate(appointments, headers=["ID", "Имя клиента", "Телефон", "Дата", "Комментарий", "Статус", "Имя мастера", "Фамилия мастера"], tablefmt="grid"))
+    else:
+        print("Записи не найдены.")
+
+# Создание новой записи
+    data = {
+        "client_name": "Артём",
+        "client_phone": "+7-333-333-33-33",
+        "master_name": "Пётр",
+        "services_list": ["Стрижка бороды"],
+        "comment": "Прошу не сбривать бороду!"
+    }
+
+    try:
+        appointment_id = create_appointment(
+            connection,
+            client_name=data["client_name"],
+            client_phone=data["client_phone"],
+            master_name=data["master_name"],
+            services_list=data["services_list"],
+            comment=data["comment"]
+        )
+        print(f"Запись успешно создана! ID: {appointment_id}")
+
+    except ValueError as e:
+        print(f"Ошибка данных: {e}\n Повторите ввод данных.")
