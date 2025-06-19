@@ -190,3 +190,19 @@ appointments_services_data = [
     },
 ]
 add_appointments_services = appointments_services.bulk_create([appointments_services(**ap_connection) for ap_connection in appointments_services_data])
+
+# Проверка данных в БД:
+print("Проверка мастеров:")
+masters_show = (Masters.select())
+for master in masters_show:
+    print(f"Имя: {master.first_name}\n Фамилия: {master.last_name}\n Отчество: {master.middle_name}\n Телефон: {master.phone}\n")
+
+print("Проверка сервисов:")
+services_show = (Services.select())
+for service in services_show:
+    print(f"Название: {service.title}\n Описание: {service.description}\n Цена: {service.price}.\n")
+
+print("Проверка записей")
+appointments_show = (Appointments.select().join(Masters))
+for appointment in appointments_show:
+    print(f"Имя заказчика: {appointment.name}\n Телефон заказчика: {appointment.phone}\n Дата заказа: {appointment.дата}\n Комментарий: {appointment.comment}\n Статус заказа: {appointment.status}\n Мастер: {appointment.master_id.first_name} {appointment.master_id.last_name}")
