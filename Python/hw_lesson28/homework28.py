@@ -3,7 +3,7 @@ from peewee import *
 import datetime
 
 # Из-за особенности загрузки домашнего задания, просьба поменять пути для корректной работы
-db = SqliteDatabase("non_git\\homework\\barbershop.db")
+db = SqliteDatabase("barbershop.db")
 
 # Модель таблицы мастеров:
 class Masters(Model):
